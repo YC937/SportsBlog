@@ -10,6 +10,10 @@ type Auth {
     user: User
 }
 
+type Query {
+    me: User
+}
+
 type Mutation {
     login(email: String!, password: String!): Auth
     signup(name: String!, email: String!, password: String!): Auth
