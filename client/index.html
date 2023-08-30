@@ -1,13 +1,107 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportsSpotter</title>
+  <style>
+  
+    body, h1, h2, h3, p {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #f0f0f0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 800px;
+      margin-bottom: 10px;
+    }
+
+    .nav-left, .nav-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+
+    .welcome-message {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .sports-gifs {
+      display: flex;
+      justify-content: space-between;
+      max-width: 800px;
+      margin: 20px auto; 
+      margin-top: 50px;
+      height: 300px;
+    }
+
+    .gif-container {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      margin-top: 50px;
+      height: 300px;
+    }
+    
+    .gif-container:first-child {
+       margin-right: 10px; 
+    }
+    
+    .gif-container:last-child {
+       margin-left: 10px; 
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="nav-left">
+        <button class="nav-button">Home</button>
+      </div>
+      <div class="nav-right">
+        <button class="nav-button">ESPN</button>
+        <button class="nav-button">Login / Signup</button>
+      </div>
+    </nav>
+    <div class="welcome-message">
+      <p>Welcome to SportsSpotter! Please Login or Signup to continue</p>
+    </div>
+  </header>
+  <main>
+    <div class="sports-gifs">
+      <div class="gif-container">
+      </div>
+      <div class="gif-container">
+      </div>
+    </div>
+  </main>
+</body>
 </html>
