@@ -2,7 +2,7 @@ const express = require('express');
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const path = require('path');
-
+const ax
 const { typeDefs, resolvers } = require('./schemas');
 const { contextTokenizer } = require('./utils/auth');
 const db = require('./config/connection');
@@ -10,6 +10,8 @@ const db = require('./config/connection');
 const PORT = process.env.PORT || 7575;
 const app = express();
 
+
+// Weather API Above
 const server = new ApolloServer({
   typeDefs,
   resolvers,
