@@ -10,7 +10,7 @@ const db = require('./config/connection');
 const PORT = process.env.PORT || 7575;
 const app = express();
 
-fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${f0706f0ed1fbf37f77e92027420ab56f}`)
+
 // Weather API Above
 const server = new ApolloServer({
   typeDefs,
