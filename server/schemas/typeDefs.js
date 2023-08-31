@@ -18,6 +18,11 @@ type Mutation {
     login(email: String!, password: String!): Auth
     signup(name: String!, email: String!, password: String!): Auth
 }
+
+type WeatherData {
+    temperature: Float
+    description: String
+}
 `;
 
 module.exports = typeDefs;
