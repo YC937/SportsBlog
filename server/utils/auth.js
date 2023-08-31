@@ -1,41 +1,48 @@
-const { GraphQLError } = require('graphql');
-const jwt = require('jsonwebtoken');
+const tokenizer = require('jsonwebtoken');
+require('dotenv').config();
 
-const secret = 'mysecretssshhhhhhh';
-const expiration = '144h';
+// const secret = 'mysecretssshhhhhhh';
+const secret = process.env.TOKEN_SECRET
+// const expiration = '144h';
+const expiration = process.env.TOKEN_EXPIRATION;
+
+// Token Secret Check
+if(process.env.TOKEN_SECRET && process.env.TOKEN_SECRET.length > 3){
+  console.log("VALID TOKEN_SECRET")
+}
+else {
+  console.log("MISSING TOKEN_SECRET");
+}
 
 module.exports = {
-  AuthenticationError: new GraphQLError('Could not authenticate user.', {
-    extensions: {
-      code: 'UNAUTHENTICATED',
-    },
-  }),
-  authMiddleware: function ({ req }) {
-    // allows token to be sent via req.body, req.query, or headers
-    let token = req.body.token || req.query.token || req.headers.authorization;
+  contextTokenizer: ({request: req, contextValue}) => {
+    const header = req.http.headers.get('authorization') || req.http.headers.get('Authorization');
+    let token = req.http.body.token || header;
 
-    // We split the token string into an array and return actual token
-    if (req.headers.authorization) {
+    if(header) {
       token = token.split(' ').pop().trim();
     }
-
-    if (!token) {
-      return req;
+    if(!token) {
+      return false;
     }
 
-    // if token can be verified, add the decoded user's data to the request so it can be accessed in the resolver
     try {
-      const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      req.user = data;
-    } catch {
-      console.log('Invalid token');
-    }
+      const {data} = tokenizer.verify(token, secret, {maxAge: expiration});
+      if(data) {
+        contextValue.user = data;
+      }
+      return data;
+  } catch(err) {
+    console.log(err);
+    console.log('contextTokenizer: Invalid token');
+  }
 
-    // return the request object so it can be passed to the resolver as `context`
-    return req;
+  return false;
   },
-  signToken: function ({ email, name, _id }) {
+
+
+  signToken: ({ email, name, _id }) => {
     const payload = { email, name, _id };
-    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+    return tokenizer.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };
