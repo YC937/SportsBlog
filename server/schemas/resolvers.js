@@ -1,38 +1,53 @@
 const { User } = require('../models');
-const { signToken, AuthenticationError } = require('../utils/auth');
+const auth = require('../utils/auth');
+const axios = require('axios');
+const { Types } = require('mongoose');
+const { isLoggedIn } = require('./shared');
+
+require('dotenv').config();
 
 const resolvers = {
   Query: {
-    me: async (parent, args, context) => {
-      if (context.user) {
-        return await User.findOne({ _id: context.user._id });
+    me: async (parent, { }, context) => {
+      if (!isLoggedIn(context)) {
+        throw new Error('You need to be logged in!');
       }
-      throw new AuthenticationError('You need to be logged in!');
-    },
+      const id = context.user._id;
+      let user = await User.findById(id);
+      user = user.toObject();
+
+      console.log(user);
+      return user;
+    }
   },
 
   Mutation: {
-    login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
 
-      if (!user) {
-        throw new AuthenticationError('No user found with this email address');
-      }
-
-      const correctPw = await user.isCorrectPassword(password);
-
-      if (!correctPw) {
-        throw AuthenticationError;
-      }
-
-      const token = signToken(user);
+    signup: async (parent, { name, email, password }, context) => {
+      const user = await User.create({ name, email, password });
+      const token = auth.signToken(user);
       return { token, user };
     },
 
-    signup: async (parent, { name, email, password }) => {
-      const user = await User.create({ name, email, password });
-      const token = signToken(user);
-      return { token, user };
+    login: async (parent, { email, password }, context) => {
+      if(email) {
+        const user = await User.findOne({ email });
+
+        if(!user) {
+          throw new Error('Error: No user found with this email address');
+        }
+
+        const correctPw = await user.isCorrectPassword(password);
+
+        if(!correctPw) {
+          throw new Error('Error: Incorrect credentials');
+        }
+
+        const token = auth.signToken(user);
+
+        return { token, user };
+      }
+      throw new Error('Error: No user found with this email address');
     },
   },
 };
