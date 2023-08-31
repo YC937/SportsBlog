@@ -9,6 +9,16 @@ const db = require('./config/connection');
 
 const PORT = process.env.PORT || 7575;
 const app = express();
+const openWeatherApiKey = process.env.f0706f0ed1fbf37f77e92027420ab56f;
+
+app.get('/api/weather', async (req, res) => {
+  try {
+    const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${req.query.city}&appid=${process.env.f0706f0ed1fbf37f77e92027420ab56f}`);
+  } catch (err) {
+    console.log('Error fetching weather data', err);
+     res.status(500).json(err: 'Error fetching weather data');
+  }
+});
 
 const server = new ApolloServer({
   typeDefs,
