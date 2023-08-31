@@ -1,8 +1,7 @@
 import React from 'react';
 
 const SearchPage = () => {
-const styles = {
-  
+  const styles = {
   body: {
     fontFamily: 'Arial, sans-serif',
   },
