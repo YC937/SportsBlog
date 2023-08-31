@@ -20,6 +20,14 @@ const resolvers = {
       return user;
     }
   },
+  getWeatherData: async (_, { city }) => {
+    const apiKey = process.env.OPENWEATHER_API_KEY;
+    const response = await axios.get(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+    );
+    return response.data;
+  }
+},
 
   Mutation: {
 
@@ -49,7 +57,7 @@ const resolvers = {
       }
       throw new Error('Error: No user found with this email address');
     },
-  },
+  }
 };
 
 module.exports = resolvers;
