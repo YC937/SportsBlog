@@ -12,6 +12,7 @@ type Auth {
 
 type Query {
     me: User
+    getWeatherData(city: String!): WeatherData
 }
 
 type Mutation {
