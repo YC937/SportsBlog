@@ -1,7 +1,6 @@
 const { User } = require('../models');
 const auth = require('../utils/auth');
 const axios = require('axios');
-const { Types } = require('mongoose');
 const { isLoggedIn } = require('./shared');
 
 
@@ -13,7 +12,7 @@ const resolvers = {
       if (!isLoggedIn(context)) {
         throw new Error('You need to be logged in!');
       }
-      const id = context.user._id;
+      const id = context.user.id;
       let user = await User.findById(id);
       user = user.toObject();
       return user;
