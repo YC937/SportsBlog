@@ -8,6 +8,7 @@ import { Outlet } from 'react-router-dom';
 
 import Auth from './utils/auth';
 
+
 // Main GraphQL endpoint
 const httpLink = createHttpLink({
   uri: '/graphql',
