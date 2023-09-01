@@ -7,7 +7,7 @@ const { contextTokenizer } = require('./utils/auth');
 const db = require('./config/connection');
 const PORT = process.env.PORT || 7575;
 const app = express();
-const openWeatherApiKey = process.env.8adc2d68e159becef4cb2a86f1c73505;
+const openWeatherApiKey = process.env.OPENWEATHER_API_KEY;
 
 // ...
 
