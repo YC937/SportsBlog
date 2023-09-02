@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
-// import { useLogin } from "../utils/LoginContext";
-// import LoginCheck from "../components/LoginCheck";
+import { useLogin } from "../utils/LoginContext";
+import LoginCheck from "../components/LoginCheck";
 // import TopNav from "../components/TopNav";
 
 export default function Home(Home) {
@@ -10,9 +10,12 @@ export default function Home(Home) {
 
   return (
     <>
+    <LoginCheck />
     <h1>Home</h1>
     { state.loggedIn ? (
+      <>
       <h2>{state.user.name}, great!</h2>
+    </>
     ) : (
       <h2>Not logged in</h2>
     )}
