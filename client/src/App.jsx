@@ -46,6 +46,7 @@ function App() {
 
   // Get token, if null, the empty string will be the token
   const token = Auth.getToken() || '';
+  console.log(token);
 
   // Want to set the proper state from the beginning if we are initially logged in
   const loggedIn = token.length > 0;
