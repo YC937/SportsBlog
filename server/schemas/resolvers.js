@@ -19,10 +19,16 @@ const resolvers = {
     },
     getWeatherData: async (_, { city }) => {
       const apiKey = process.env.OPENWEATHER_API_KEY;
+      console.log('API Key:',apiKey);
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
       );
-      return response.data;
+      const weatherData ={
+        temperature: response.data.main.temp,
+        description: response.data.weather[0].description,
+      };
+
+      return weatherData;
     }
   },
   Mutation: {
@@ -52,7 +58,20 @@ login: async (parent, { email, password }) => {
   }
   throw new Error('Error: No user found with this email address');
 },
-  }
+// getWeatherData: async (_, { city }) => {
+//   const apiKey = process.env.OPENWEATHER_API_KEY;
+//   const response = await axios.get(
+//     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+//   );
+  
+//   const weatherData = {
+//     temperature: response.data.main.temp,
+//     description: response.data.weather[0].description,
+//   };
+
+//   return weatherData;
+//   },
+},
 };
 
 module.exports = resolvers;
