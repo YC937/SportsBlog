@@ -7,11 +7,11 @@ type User {
 
 type Auth {
     token: ID!
-    user: Username
+    user: User
 }
 
 type Query {
-    me: Username
+    me: User
     getWeatherData(city: String!): WeatherData
 }
 
