@@ -4,7 +4,7 @@ import { createContext, useContext, useReducer } from "react";
 import { reducer } from './reducers';
 
 // Create login context using createContext()
-export const LoginContext = createContext();
+export const LoginContext = createContext([{}, () => { }]);
 
 // Create custom hook to use the login context
 export const useLogin = () => useContext(LoginContext);

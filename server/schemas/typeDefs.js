@@ -1,7 +1,7 @@
 const typeDefs = `
 type User {
     _id: ID!
-    name: String!
+    username: String!
     email: String!
 }
 
@@ -17,7 +17,7 @@ type Query {
 
 type Mutation {
     login(email: String!, password: String!): Auth
-    signup(name: String!, email: String!, password: String!): Auth
+    signup(username: String!, email: String!, password: String!): Auth
 }
 
 type WeatherData {
