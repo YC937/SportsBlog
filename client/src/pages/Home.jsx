@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
-import { useLogin } from "../utils/LoginContext";
-import LoginCheck from "../components/LoginCheck";
-import TopNav from "../components/TopNav";
+// import { useLogin } from "../utils/LoginContext";
+// import LoginCheck from "../components/LoginCheck";
+// import TopNav from "../components/TopNav";
 
 export default function Home(Home) {
   const { state, dispatch } = useLogin();

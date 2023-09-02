@@ -3,6 +3,7 @@ import { MUTATION_LOGIN } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { useNavigate } from 'react-router-dom';
+import { set } from 'mongoose';
 
 export default function LoginForm(props) {
     const navigate = useNavigate();
@@ -11,7 +12,17 @@ export default function LoginForm(props) {
         password: ''
     });
 
-    const [login, { error }] = useMutation(MUTATION_LOGIN);
+    const [showError, setShowError] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [userData, setUserData] = useState({
+      _id: '',
+      username: '',
+      email: '',
+    });
+
+    const [login, { error }] = useMutation(MUTATION_LOGIN, {
+      fetchPolicy: 'no-cache',
+    });
 
     const { state, dispatch } = useLogin();
 
@@ -30,6 +41,8 @@ export default function LoginForm(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(formState);
+        setShowError(false);
+        setShowSuccess(false);
 
 
         try {
