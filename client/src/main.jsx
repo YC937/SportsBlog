@@ -31,13 +31,9 @@ const router = createBrowserRouter([
       //   element: <Logout />,
       // },
       // {
-      //   path: '/stadiums_and_upcoming-games',
+      //   path: '/stadium_search',
       //   element: <Home />,
-      // },
-      // {
-      //   path: '/search',
-      //   element: <Home />,
-      // },
+      // }
     ]
   }
 ])

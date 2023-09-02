@@ -3,21 +3,21 @@ import { useLogin } from "../utils/LoginContext";
 import LoginCheck from "../components/LoginCheck";
 // import TopNav from "../components/TopNav";
 
-export default function Home(Home) {
-  const { state, dispatch } = useLogin();
+export default function Home(props) {
+  const [ state, dispatch ] = useLogin();
 
   const userData = state.user || {message: "not logged in"};
 
   return (
     <>
     <LoginCheck />
-    <h1>Home</h1>
     { state.loggedIn ? (
       <>
-      <h2>{state.user.name}, great!</h2>
+      <h1>Welcome, {state.user.name}</h1>
+      <p>Click on Search Stadiums to begin finding your stadiums!</p>
     </>
     ) : (
-      <h2>Not logged in</h2>
+      <h2>Please Login or Signup to search stadiums!</h2>
     )}
     <pre>{JSON.stringify(userData, null, 2)}</pre>
     </>
