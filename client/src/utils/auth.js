@@ -1,7 +1,42 @@
-const tokenName = 'user_token';
+import decode from 'jwt-decode';
 
-export default {
-    getToken: () => localStorage.getItem(tokenName),
-    setToken: (token) => localStorage.setItem(tokenName, token),
-    deleteToken: () => localStorage.removeItem(tokenName)
+class AuthService {
+    getProfile() {
+        return decode(this.getToken());
+    }
+
+    loggedIn() {
+        const token = this.getToken();
+        return token && !this.isTokenExpired(token) ? true : false;
+    }
+
+    isTokenExpired(token) {
+        try {
+            const decoded = decode(token);
+            if (decoded.exp < Date.now() / 1000) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (err) {
+            return false;
+        }
+    }
+
+    getToken() {
+        return localStorage.getItem('id_token');
+    }
+
+    login(IdToken) {
+        localStorage.setItem('id_token', IdToken);
+        window.location.assign('/');
+    }
+
+    logout() {
+        localStorage.removeItem('id_token');
+        window.location.assign('/');
+    }
 }
+
+
+export default new AuthService();

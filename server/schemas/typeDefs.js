@@ -1,24 +1,23 @@
 const typeDefs = `
 type User {
     _id: ID!
-    name: String!
+    username: String!
     email: String!
 }
 
 type Auth {
     token: ID!
-    user: User
+    user: Username
 }
 
 type Query {
-    me: User
+    me: Username
     getWeatherData(city: String!): WeatherData
 }
 
 type Mutation {
     login(email: String!, password: String!): Auth
-    signup(name: String!, email: String!, password: String!): Auth
-    getWeatherData(city: String!): WeatherData
+    signup(username: String!, email: String!, password: String!): Auth
 }
 
 type WeatherData {

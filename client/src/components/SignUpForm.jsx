@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { MUTATION_LOGIN } from '../utils/mutations';
+import { MUTATION_SIGNUP } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { useNavigate } from 'react-router-dom';
 import { useLogin } from '../utils/LoginContext';
-import { LOGIN } from '../utils/actions';
+import { SIGNUP } from '../utils/actions';
 
 export default function LoginForm(props) {
     const navigate = useNavigate();
     const [formState, setFormState] = useState({
+        username: '',
         email: '',
         password: ''
     });
@@ -16,16 +17,16 @@ export default function LoginForm(props) {
     const [showError, setShowError] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [userData, setUserData] = useState({
-      _id: '',
-      username: '',
-      email: '',
+        _id: '',
+        username: '',
+        email: '',
     });
 
-    const [login, { error }] = useMutation(MUTATION_LOGIN, {
-      fetchPolicy: 'no-cache',
+    const [signup, { error }] = useMutation(MUTATION_SIGNUP, {
+        fetchPolicy: 'no-cache',
     });
 
-    const [ state, dispatch ] = useLogin();
+    const [state, dispatch] = useLogin();
 
     const handleChange = (event) => {
         event.preventDefault();
@@ -47,7 +48,7 @@ export default function LoginForm(props) {
 
 
         try {
-            const { data } = await login({
+            const { data } = await signup({
                 variables: { ...formState }
             });
 
@@ -63,7 +64,7 @@ export default function LoginForm(props) {
             Auth.setToken(token);
             // Update the state
             dispatch({
-                type: LOGIN, payload: {
+                type: SIGNUP, payload: {
                     token: token,
                     user: user
                 }
@@ -79,13 +80,23 @@ export default function LoginForm(props) {
 
     return (
         <form onSubmit={handleSubmit}>
+            <h3 className='lables'>Username:</h3>
+            <input
+                name="username"
+                type="text"
+                placeholder="username"
+                value={formState.username}
+                onChange={handleChange}
+            />
+            <h3 className='lables'>Email:</h3>
             <input
                 name="email"
                 type="email"
-                placeholder="email@mail.com"
+                placeholder="email"
                 value={formState.email}
                 onChange={handleChange}
             />
+            <h3 className='lables'>Password:</h3>
             <input
                 name="password"
                 type="password"
@@ -93,21 +104,21 @@ export default function LoginForm(props) {
                 value={formState.password}
                 onChange={handleChange}
             />
-            <button type="submit">Login</button>
-      { showError ? (
-        <h4 style={{color: "red"}}>
-          Wrong password! Please try again.
-        </h4>
-      ) : (
-        <></>
-      )}
-      { showSuccess ? (
-        <h4 style={{color: "green"}}>
-          Login Successful! Hello, {userData.username}!
-        </h4>
-      ) : (
-        <></>
-      )}
-    </form>
-  )
+            <button type="submit">Signup</button>
+            {showError ? (
+                <h4 style={{ color: "red" }}>
+                    You encountered an error signing up! Please try again.
+                </h4>
+            ) : (
+                <></>
+            )}
+            {showSuccess ? (
+                <h4 style={{ color: "green" }}>
+                    You have been Successfully signed up! Welcome, {userData.username}!
+                </h4>
+            ) : (
+                <></>
+            )}
+        </form>
+    )
 }

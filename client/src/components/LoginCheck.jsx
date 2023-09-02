@@ -6,8 +6,8 @@ import { LOGIN, LOGOUT } from "../utils/actions";
 import Auth from "../utils/auth";
 
 export default function LoginCheck(props) {
-    const { state, dispatch } = useLogin();
-    const { loading, data } = useQuery(QUERY_ME, {
+    const [ state, dispatch ] = useLogin();
+    const { loading, data: loginData } = useQuery(QUERY_ME, {
         fetchPolicy: 'no-cache',
     });
 

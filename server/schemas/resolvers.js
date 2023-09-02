@@ -32,13 +32,13 @@ const resolvers = {
     }
   },
   Mutation: {
-    signup: async (parent, { name, email, password }, context) => {
-      const user = await User.create({ name, email, password });
+    signup: async (parent, { username, email, password }) => {
+      const user = await User.create({ username, email, password });
       const token = auth.signToken(user);
       return { token, user }; 
 },
 
-login: async (parent, { email, password }, context) => {
+login: async (parent, { email, password }) => {
   if (email) {
     const user = await User.findOne({ email });
 
