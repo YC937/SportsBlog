@@ -18,6 +18,7 @@ type Query {
 type Mutation {
     login(email: String!, password: String!): Auth
     signup(name: String!, email: String!, password: String!): Auth
+    getWeatherData(city: String!): WeatherData
 }
 
 type WeatherData {
