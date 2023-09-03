@@ -2,9 +2,11 @@ const express = require('express');
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const path = require('path');
+
 const { typeDefs, resolvers } = require('./schemas');
 const { contextTokenizer } = require('./utils/auth');
 const db = require('./config/connection');
+
 const PORT = process.env.PORT || 7575;
 const app = express();
 const openWeatherApiKey = process.env.OPENWEATHER_API_KEY;
