@@ -14,6 +14,7 @@ import { Outlet } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
 
 import Auth from './utils/auth';
+import Nav from './components/Nav';
 
 
 // Main GraphQL endpoint
