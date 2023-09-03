@@ -60,7 +60,7 @@ export default function LoginForm(props) {
             setUserData(user);
 
             // Save Token
-            Auth.setToken(token);
+            Auth.login(token);
             // Update the state
             dispatch({
                 type: LOGIN, payload: {

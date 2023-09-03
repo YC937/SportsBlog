@@ -53,20 +53,20 @@ export default function LoginForm(props) {
             });
 
             console.log(data);
-            const token = data?.login.token || '';
-            const user = data?.login.user || {};
-            console.log(data?.login.token);
-            console.log(data?.login.user);
+            const token = data?.signup.token || '';
+            const user = data?.signup.user || {};
+            console.log(data?.signup.token);
+            console.log(data?.signup.user);
             setShowSuccess(true);
             setUserData(user);
 
             // Save Token
-            Auth.setToken(token);
+            Auth.login(token);
             // Update the state
             dispatch({
                 type: SIGNUP, payload: {
-                    token: token,
-                    user: user
+                    token,
+                    user
                 }
             });
             return navigate('/');
