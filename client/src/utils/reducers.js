@@ -3,7 +3,7 @@ import { LOGIN, LOGOUT, SIGNUP } from "./actions";
 export const reducer = (state, {type, payload}) => {
   switch(type){
     case LOGIN: 
-      if(payload.token.length >= 0){
+      if(payload && payload.token && payload.token.length > 0){
         return {
           ...state,
           loggedIn: true,
