@@ -1,4 +1,4 @@
-import SignupForm from '../components/SignupForm';
+import SignupForm from '../components/SignUpForm';
 import LoginCheck from '../components/LoginCheck';
 
 export default function Signup(props) {
