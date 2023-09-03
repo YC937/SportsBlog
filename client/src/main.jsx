@@ -10,6 +10,7 @@ import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Logout from './pages/Logout.jsx'
 import Error from './pages/Error.jsx'
+import Signup from './pages/Signup.jsx'
 
 
 const router = createBrowserRouter([
@@ -30,8 +31,12 @@ const router = createBrowserRouter([
         path: '/logout',
         element: <Logout />,
       },
+      {
+        path: '/signup',
+        element: <Signup />,
+      },
       // {
-      //   path: '/stadium_search',
+      //   path: '/stadium-search',
       //   element: <Home />,
       // }
     ]
