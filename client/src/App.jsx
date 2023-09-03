@@ -58,6 +58,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <LoginProvider token={token} loggedIn={loggedIn}>
+        <Nav />
         <Outlet />
       </LoginProvider>
     </ApolloProvider>
