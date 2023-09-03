@@ -29,6 +29,30 @@ const resolvers = {
       };
 
       return weatherData;
+    },
+    getStadiumLocation: async (_, { sportsGame }) => {
+      const apiKey = process.env.GOOGLEPLACES_API_KEY; 
+      const apiUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json`;
+      
+      try {
+        const response = await axios.get(apiUrl, {
+          params: {
+            query: `${sportsGame} stadium`,
+            key: apiKey,
+          },
+        });
+    
+        const stadiumLocations = response.data.results.map(result => ({
+          name: result.name,
+          address: result.formatted_address,
+          location: result.geometry.location,
+        }));
+    
+        return stadiumLocations;
+      } catch (error) {
+        console.error('Error fetching stadium locations:', error);
+        throw new Error('Error fetching stadium locations');
+      }
     }
   },
   Mutation: {
