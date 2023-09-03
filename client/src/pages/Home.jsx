@@ -13,13 +13,13 @@ export default function Home(props) {
     <LoginCheck />
     { state.loggedIn ? (
       <>
-      <h1>Welcome, {state.user.name}</h1>
+      <h1>Welcome, {userData.username}</h1>
       <p>Click on Search Stadiums to begin finding your stadiums!</p>
     </>
     ) : (
       <h2>Please Login or Signup to search stadiums!</h2>
     )}
-    <pre>{JSON.stringify(userData, null, 2)}</pre>
+    {/* <pre>{JSON.stringify(userData, null, 2)}</pre> */}
     </>
   )
 }
