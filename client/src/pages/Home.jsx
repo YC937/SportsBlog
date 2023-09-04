@@ -1,4 +1,3 @@
-import { useQuery } from "@apollo/client";
 import { useLogin } from "../utils/LoginContext";
 import LoginCheck from "../components/LoginCheck";
 // import TopNav from "../components/TopNav";

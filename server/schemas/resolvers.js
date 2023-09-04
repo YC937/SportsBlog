@@ -1,4 +1,4 @@
-const { User, Stadium } = require('../models');
+const { User } = require('../models');
 const auth = require('../utils/auth');
 const axios = require('axios');
 const { isLoggedIn } = require('./shared');
@@ -54,18 +54,61 @@ const resolvers = {
         throw new Error('Error fetching stadium locations');
       }
     },
-    stadiums: async (_, { searchTerm }) => {
+    team: async (_, { id }) => {
       try {
-        const stadiums = await Stadium.find({
-          name: new RegExp(searchTerm, 'i')
-        });
+        const apiUrl = `https://www.thesportsdb.com/api/v1/json/${process.env.THESPORTSDB_API_KEY}/lookupteam.php?id=${id}`;
+        const response = await axios.get(apiUrl);
+        const team = response.data.teams[0];
+        return team;
+      } catch (error) {
+        console.error('Error fetching team:', error);
+        throw new Error('Error fetching team');
+      }
+    },
+    
+    player: async (_, { id }) => {
+      try {
+        const apiUrl = `https://www.thesportsdb.com/api/v1/json/${process.env.THESPORTSDB_API_KEY}/lookupplayer.php?id=${id}`;
+        const response = await axios.get(apiUrl);
+        const player = response.data.players[0];
+        return player;
+      } catch (error) {
+        console.error('Error fetching player:', error);
+        throw new Error('Error fetching player');
+      }
+    },
+    
+    event: async (_, { id }) => {
+      try {
+        const apiUrl = `https://www.thesportsdb.com/api/v1/json/${process.env.THESPORTSDB_API_KEY}/lookupevent.php?id=${id}`;
+        const response = await axios.get(apiUrl);
+    
+        const event = response.data.events[0];
+        return event;
+      } catch (error) {
+        console.error('Error fetching event:', error);
+        throw new Error('Error fetching event');
+      }
+    },
+    
 
+    searchStadiums: async (_, { teamName }) => {
+      const apiKey = process.env.THESPORTSDB_API_KEY;
+      const apiUrl = `https://www.thesportsdb.com/api/v1/json/${apiKey}/searchteams.php?t=${teamName}`;
+
+      try {
+        const response = await axios.get(apiUrl);
+        const team = response.data.teams[0];
+        const stadiums = [{
+          name: team.strStadium,
+          location: team.strStadiumLocation,
+        }];
         return stadiums;
       } catch (error) {
         console.error('Error fetching stadiums:', error);
         throw new Error('Error fetching stadiums');
       }
-    }
+    },
   },
   Mutation: {
     signup: async (parent, { username, email, password }) => {
@@ -94,6 +137,32 @@ login: async (parent, { email, password }) => {
   }
   throw new Error('Error: No user found with this email address');
 },
+addPlayer: async (_, { input }) => {
+  const apiKey = process.env.THESPORTSDB_API_KEY; 
+  const apiUrl = `https://www.thesportsdb.com/api/v1/json/${apiKey}/addplayer.php`;
+
+  try {
+    const response = await axios.post(apiUrl, input);
+    const addedPlayer = response.data.player; 
+    return addedPlayer;
+  } catch (error) {
+    console.error('Error adding player:', error);
+    throw new Error('Error adding player');
+  }
+},
+// getWeatherData: async (_, { city }) => {
+//   const apiKey = process.env.OPENWEATHER_API_KEY;
+//   const response = await axios.get(
+//     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+//   );
+  
+//   const weatherData = {
+//     temperature: response.data.main.temp,
+//     description: response.data.weather[0].description,
+//   };
+
+//   return weatherData;
+//   },
 },
 };
 
