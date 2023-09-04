@@ -20,7 +20,7 @@ export default function LoginCheck(props) {
     useEffect(() => {
         if (!loading) {
             if (loggedIn && dispatch) {
-                // Auth.setToken(token);
+                // Auth.login(token);
                 dispatch({
                     type: LOGIN,
                     payload: {
@@ -29,7 +29,7 @@ export default function LoginCheck(props) {
                     }
                 });
             } else if (dispatch) {
-                // Auth.deleteToken();
+                // Auth.logout();
                 dispatch({
                     type: LOGOUT
                 });
