@@ -20,23 +20,56 @@ type StadiumLocation {
     address: String
     location: Location
 }
-
-input PlayerInput {
-    name: String!
-    team: String!
-  }
-
-  type Player {
-    id: String
+  
+  type Stadium {
     name: String
-    team: String
+    location: String
   }
 
+  type Team {
+    idTeam: ID
+    strTeam: String
+    strAlternate: String
+    strLeague: String
+    strSport: String
+    strCountry: String
+    strStadium: String
+    strStadiumLocation: String
+    strStadiumThumb: String
+    strTeamBadge: String
+    strTeamLogo: String
+    strDescriptionEN: String
+    intFormedYear: Int
+  }
+  
+  type Player {
+    idPlayer: ID
+    strPlayer: String
+    strTeam: String
+    strPosition: String
+    strThumb: String
+    strDescriptionEN: String
+  }
+  
+  input PlayerInput {
+  name: String!
+  team: String!
+}
+  type Event {
+    idEvent: ID
+    strEvent: String
+    dateEvent: String
+    strTime: String
+  }
+  
 type Query {
     me: User
     getWeatherData(city: String!): WeatherData
     getStadiumLocation(sportsGame: String!): [StadiumLocation]
-    getPlayersByTeam(teamName: String!): [Player]
+    event(id: ID!): Event
+    team(id: ID!): Team
+    player(id: ID!): Player
+    searchStadiums(teamName: String!): [Stadium] 
 }
 
 type Mutation {
