@@ -47,14 +47,14 @@ function App() {
 
   // Get token, if null, the empty string will be the token
   const token = Auth.getToken() || '';
-  console.log(token);
+  // console.log(token);
 
   // Want to set the proper state from the beginning if we are initially logged in
   const loggedIn = token.length > 0;
 
   // Declared apollo provider here, so we cannot run queries in this App component
   // Created a LoginCheck component to run queries
-  console.log(token);
+  // console.log(token);
 
   return (
     <ApolloProvider client={client}>
