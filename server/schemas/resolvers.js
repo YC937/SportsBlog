@@ -53,7 +53,25 @@ const resolvers = {
         console.error('Error fetching stadium locations:', error);
         throw new Error('Error fetching stadium locations');
       }
-    }
+    },
+    getPlayersByTeam: async (_, { teamName }) => {
+      const apiKey = process.env.THESPORTSDB_API_KEY; 
+      const apiUrl = `https://www.thesportsdb.com/api/v1/json/${apiKey}/searchplayers.php?t=${teamName}`;
+
+      try {
+        const response = await axios.get(apiUrl);
+        const players = response.data.player.map(playerData => ({
+          id: playerData.idPlayer,
+          name: playerData.strPlayer,
+          team: playerData.strTeam,
+          
+        }));
+        return players;
+      } catch (error) {
+        console.error('Error fetching players:', error);
+        throw new Error('Error fetching players');
+      }
+    },
   },
   Mutation: {
     signup: async (parent, { username, email, password }) => {
@@ -81,6 +99,19 @@ login: async (parent, { email, password }) => {
     return { token, user };
   }
   throw new Error('Error: No user found with this email address');
+},
+addPlayer: async (_, { input }) => {
+  const apiKey = process.env.THESPORTSDB_API_KEY; 
+  const apiUrl = `https://www.thesportsdb.com/api/v1/json/${apiKey}/addplayer.php`;
+
+  try {
+    const response = await axios.post(apiUrl, input);
+    const addedPlayer = response.data.player; 
+    return addedPlayer;
+  } catch (error) {
+    console.error('Error adding player:', error);
+    throw new Error('Error adding player');
+  }
 },
 // getWeatherData: async (_, { city }) => {
 //   const apiKey = process.env.OPENWEATHER_API_KEY;
