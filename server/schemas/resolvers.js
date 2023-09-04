@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Stadium } = require('../models');
 const auth = require('../utils/auth');
 const axios = require('axios');
 const { isLoggedIn } = require('./shared');
@@ -53,6 +53,18 @@ const resolvers = {
         console.error('Error fetching stadium locations:', error);
         throw new Error('Error fetching stadium locations');
       }
+    },
+    stadiums: async (_, { searchTerm }) => {
+      try {
+        const stadiums = await Stadium.find({
+          name: new RegExp(searchTerm, 'i')
+        });
+
+        return stadiums;
+      } catch (error) {
+        console.error('Error fetching stadiums:', error);
+        throw new Error('Error fetching stadiums');
+      }
     }
   },
   Mutation: {
@@ -82,19 +94,6 @@ login: async (parent, { email, password }) => {
   }
   throw new Error('Error: No user found with this email address');
 },
-// getWeatherData: async (_, { city }) => {
-//   const apiKey = process.env.OPENWEATHER_API_KEY;
-//   const response = await axios.get(
-//     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
-//   );
-  
-//   const weatherData = {
-//     temperature: response.data.main.temp,
-//     description: response.data.weather[0].description,
-//   };
-
-//   return weatherData;
-//   },
 },
 };
 
