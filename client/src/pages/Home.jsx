@@ -14,7 +14,7 @@ export default function Home(props) {
     { state.loggedIn ? (
       <>
       <h1>Welcome, {userData.username}</h1>
-      <p>Click on Search Stadiums to begin finding your stadiums!</p>
+      <p>Click on Stadium Search to begin finding your stadiums!</p>
     </>
     ) : (
       <h2>Please Login or Signup to search stadiums!</h2>
