@@ -1,4 +1,8 @@
-const models = require('../models');
+// const models = require('../models');
+const models = {
+    User: require('../models/User'),
+    Stadium: require('../models/Stadium'),
+};
 const db = require('../config/connection');
 
 module.exports = async (modelName, collectionName) => {
