@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_WEATHER_DATA } from './utils/queries'; 
+import { GET_WEATHER_DATA } from '../utils/queries'; 
 
 const WeatherComponent = ({ city }) => {
   const { loading, error, data } = useQuery(GET_WEATHER_DATA, {

@@ -1,0 +1,12 @@
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000; 
+}
+body {
+    padding-top: 70px;
+}
+.navbar-collapse {
+    justify-content: center;
+}

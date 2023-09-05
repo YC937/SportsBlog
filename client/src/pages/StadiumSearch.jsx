@@ -1,14 +1,31 @@
-import LoginCheck from '../components/LoginCheck';
-import Stadiums from './Stadiums';
+// import React from 'react';
+//  import WeatherComponent from '../components/Weather';
+// import EventComponent from '../components/Events';
+// import StadiumLocations from '../components/Locations';
 
-export default function StadiumSearch(props) {
-    return (
-        <>
-        <LoginCheck />
-        <div className='stadium-search-page'>
-            <h1>Stadium Search</h1>
-            <Stadiums />
-        </div>
-        </>
-    )
-}
+
+// export default function StadiumSearch() {
+//     // Define the city and event ID based on your requirements
+//     const city = 'YourCity';
+//     const eventId = 'YourEventID';
+//     const sportsGame = 'YourSportsGame';
+  
+//     return (
+//         <>
+//       <div>
+//         <h1>Stadium Search</h1>
+        
+//         {/* Weather Component */}
+//         <WeatherComponent city={city} />
+        
+//         {/* Event Component */}
+//         <EventComponent id={eventId} />
+        
+//         {/* Stadium Locations Component */}
+//         <StadiumLocations sportsGame={sportsGame} />
+//       </div>
+//       </>
+//     );
+//   }
+  
+  

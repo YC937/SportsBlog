@@ -12,6 +12,7 @@ import Logout from './pages/Logout.jsx'
 import Error from './pages/Error.jsx'
 import Signup from './pages/Signup.jsx'
 import StadiumSearch from './pages/StadiumSearch.jsx'
+// import StadiumSearch from './pages/StadiumSearch.jsx'
 
 
 const router = createBrowserRouter([
@@ -42,8 +43,8 @@ const router = createBrowserRouter([
       },
       // {
       //   path: '/stadium-search',
-      //   element: <Home />,
-      // }
+      //   element: <StadiumSearch />,
+      //  }
     ]
   }
 ])
