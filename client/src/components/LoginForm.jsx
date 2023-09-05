@@ -41,7 +41,7 @@ export default function LoginForm(props) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(formState);
+        console.log('Form State:', formState);
         setShowError(false);
         setShowSuccess(false);
 

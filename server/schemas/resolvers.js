@@ -91,24 +91,6 @@ const resolvers = {
       }
     },
     
-
-    searchStadiums: async (_, { teamName }) => {
-      const apiKey = process.env.THESPORTSDB_API_KEY;
-      const apiUrl = `https://www.thesportsdb.com/api/v1/json/${apiKey}/searchteams.php?t=${teamName}`;
-
-      try {
-        const response = await axios.get(apiUrl);
-        const team = response.data.teams[0];
-        const stadiums = [{
-          name: team.strStadium,
-          location: team.strStadiumLocation,
-        }];
-        return stadiums;
-      } catch (error) {
-        console.error('Error fetching stadiums:', error);
-        throw new Error('Error fetching stadiums');
-      }
-    },
   },
   Mutation: {
     signup: async (parent, { username, email, password }) => {
