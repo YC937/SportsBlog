@@ -20,11 +20,6 @@ type StadiumLocation {
     address: String
     location: Location
 }
-  
-  type Stadium {
-    name: String
-    location: String
-  }
 
   type Team {
     idTeam: ID
@@ -69,7 +64,6 @@ type Query {
     event(id: ID!): Event
     team(id: ID!): Team
     player(id: ID!): Player
-    searchStadiums(teamName: String!): [Stadium] 
 }
 
 type Mutation {

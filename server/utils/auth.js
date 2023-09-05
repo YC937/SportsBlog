@@ -1,3 +1,5 @@
+console.log("TOKEN_SECRET:", process.env.TOKEN_SECRET);
+console.log("TOKEN_EXPIRATION:", process.env.TOKEN_EXPIRATION);
 const tokenizer = require('jsonwebtoken');
 require('dotenv').config();
 
