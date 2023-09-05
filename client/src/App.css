@@ -1,42 +1,48 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  padding: 0px;
+  margin: 0px;
   text-align: center;
+  background-color: #1b4b3d;
+  color: white;
+}
+.top {
+  height: 40vh;
+  width: 100%;
+  margin-bottom: 25px;
+  background-image: url("./assets/Cubs-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+.bottom {
+  height: 30vh;
+  width: 100%;
+  margin-bottom: 25px;
+  background-image: url("./assets/Cubs-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.navigation-bar {
+  background-color: gray;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.page-sizing {
+  width: 100%;
+  height: 100%;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.home-pad {
+  padding: 100px;
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.footer {
+  background-color: #1b4b3d;
+  height: 5vh;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
