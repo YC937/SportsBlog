@@ -1,6 +1,7 @@
 const db = require('../config/connection');
 const cleanDB = require('./cleanDB');
 const { User } = require('../models');
+require('dotenv').config();
 
 const userData = require('./userData.json');
 
