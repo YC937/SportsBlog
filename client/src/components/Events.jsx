@@ -1,8 +1,8 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_EVENT } from './utils/queries';
+import { GET_EVENT } from '../utils/queries';
 
-function EventComponent({ id }) {
+export default function EventComponent({ id }) {
   const { loading, error, data } = useQuery(GET_EVENT, {
     variables: { id },
   });
@@ -22,4 +22,4 @@ function EventComponent({ id }) {
   );
 }
 
-export default EventComponent;
+
