@@ -2,6 +2,7 @@ const { User } = require('../models');
 const auth = require('../utils/auth');
 const axios = require('axios');
 const { isLoggedIn } = require('./shared');
+const eventMap = require('../config/eventmap');
 
 
 require('dotenv').config();
@@ -30,30 +31,30 @@ const resolvers = {
 
       return weatherData;
     },
-    getStadiumLocation: async (_, { sportsGame }) => {
-      const apiKey = process.env.GOOGLEPLACES_API_KEY; 
-      const apiUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json`;
+    // getStadiumLocation: async (_, { sportsGame }) => {
+    //   const apiKey = process.env.GOOGLEPLACES_API_KEY; 
+    //   const apiUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json`;
       
-      try {
-        const response = await axios.get(apiUrl, {
-          params: {
-            query: `${sportsGame} stadium`,
-            key: apiKey,
-          },
-        });
+    //   try {
+    //     const response = await axios.get(apiUrl, {
+    //       params: {
+    //         query: `${sportsGame} stadium`,
+    //         key: apiKey,
+    //       },
+    //     });
     
-        const stadiumLocations = response.data.results.map(result => ({
-          name: result.name,
-          address: result.formatted_address,
-          location: result.geometry.location,
-        }));
+    //     const stadiumLocations = response.data.results.map(result => ({
+    //       name: result.name,
+    //       address: result.formatted_address,
+    //       location: result.geometry.location,
+    //     }));
     
-        return stadiumLocations;
-      } catch (error) {
-        console.error('Error fetching stadium locations:', error);
-        throw new Error('Error fetching stadium locations');
-      }
-    },
+    //     return stadiumLocations;
+    //   } catch (error) {
+    //     console.error('Error fetching stadium locations:', error);
+    //     throw new Error('Error fetching stadium locations');
+    //   }
+    // },
     team: async (_, { id }) => {
       try {
         const apiUrl = `https://www.thesportsdb.com/api/v1/json/${process.env.THESPORTSDB_API_KEY}/lookupteam.php?id=${id}`;
@@ -78,18 +79,33 @@ const resolvers = {
       }
     },
     
-    event: async (_, { id }) => {
+    event: async (_, { id, eventName }) => {
       try {
-        const apiUrl = `https://www.thesportsdb.com/api/v1/json/${process.env.THESPORTSDB_API_KEY}/lookupevent.php?id=${id}`;
-        const response = await axios.get(apiUrl);
-    
-        const event = response.data.events[0];
-        return event;
+          let eventId;
+
+          if (id) {
+              eventId = id;
+          } 
+          else if (eventName) {
+              eventId = eventMap[eventName];
+              if (!eventId) {
+                  throw new Error(`No event found with the name ${eventName}`);
+              }
+          } else {
+              throw new Error('You must provide either an ID or eventName');
+          }
+  
+          const apiUrl = `https://www.thesportsdb.com/api/v1/json/${process.env.THESPORTSDB_API_KEY}/lookupevent.php?id=${eventId}`;
+          const response = await axios.get(apiUrl);
+  
+          const event = response.data.events[0];
+          return event;
       } catch (error) {
-        console.error('Error fetching event:', error);
-        throw new Error('Error fetching event');
+          console.error('Error fetching event:', error);
+          throw new Error('Error fetching event');
       }
-    },
+  },
+  
     
   },
   Mutation: {
