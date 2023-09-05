@@ -19,7 +19,7 @@ const resolvers = {
     },
     getWeatherData: async (_, { city }) => {
       const apiKey = process.env.OPENWEATHER_API_KEY;
-      console.log('API Key:', apiKey);
+      // console.log('API Key:', apiKey);
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
       );
