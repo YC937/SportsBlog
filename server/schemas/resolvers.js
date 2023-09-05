@@ -31,6 +31,7 @@ const resolvers = {
 
       return weatherData;
     },
+
     // getStadiumLocation: async (_, { sportsGame }) => {
     //   const apiKey = process.env.GOOGLEPLACES_API_KEY;
     //   const apiUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json`;
@@ -55,6 +56,7 @@ const resolvers = {
     //     throw new Error('Error fetching stadium locations');
     //   }
     // },
+
     team: async (_, { id }) => {
       try {
         const apiUrl = `https://www.thesportsdb.com/api/v1/json/${process.env.THESPORTSDB_API_KEY}/lookupteam.php?id=${id}`;
@@ -79,6 +81,7 @@ const resolvers = {
       }
     },
 
+    
     event: async (_, { id, eventName }) => {
       try {
           let eventId;
@@ -100,13 +103,15 @@ const resolvers = {
   
           const event = response.data.events[0];
           return event;
+
       } catch (error) {
           console.error('Error fetching event:', error);
           throw new Error('Error fetching event');
       }
+
   },
   
-
+    
   },
   Mutation: {
     signup: async (parent, { username, email, password }) => {
