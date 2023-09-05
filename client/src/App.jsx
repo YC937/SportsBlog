@@ -13,6 +13,9 @@ import { setContext } from '@apollo/client/link/context';
 
 import Auth from './utils/auth';
 import Nav from './components/Nav';
+import Top from './components/Top';
+import Bottom from './components/Bottom';
+import Footer from './components/Footer';
 
 
 // Main GraphQL endpoint
@@ -58,7 +61,10 @@ function App() {
     <ApolloProvider client={client}>
       <LoginProvider token={token} loggedIn={loggedIn}>
         <Nav />
+        <Top />
         <Outlet />
+        <Bottom />
+        <Footer />
       </LoginProvider>
     </ApolloProvider>
   )
