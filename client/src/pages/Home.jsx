@@ -12,7 +12,7 @@ export default function Home(props) {
     <LoginCheck />
     { state.loggedIn ? (
       <>
-      <h1>Welcome, {userData.username}</h1>
+      <h1>Welcome to Sports Spotter!</h1>
       <p>Click on Stadium Search to begin finding your stadiums!</p>
     </>
     ) : (
