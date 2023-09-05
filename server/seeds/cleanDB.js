@@ -2,18 +2,18 @@ const models = require('../models');
 const db = require('../config/connection');
 
 module.exports = async (modelName, collectionName) => {
-    try {
-      let modelExists = await models[modelName].db.db.listCollections({
-        name: collectionName
-      }).toArray()
-  
-      if (modelExists.length) {
-        await db.dropCollection(collectionName);
-      }
-    } catch (err) {
-      throw err;
+  try {
+    let connection = models[modelName].collection.conn;
+    let collections = await connection.db.listCollections().toArray();
+    let modelExists = collections.some(col => col.name === collectionName)
+
+    if (modelExists.length) {
+      await db.dropCollection(collectionName);
     }
+  } catch (err) {
+    throw err;
   }
+}
 
 
 // Just anoither way to do it 

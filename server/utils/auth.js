@@ -1,3 +1,5 @@
+console.log("TOKEN_SECRET:", process.env.TOKEN_SECRET);
+console.log("TOKEN_EXPIRATION:", process.env.TOKEN_EXPIRATION);
 const tokenizer = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -41,8 +43,8 @@ module.exports = {
   },
 
 
-  signToken: ({ email, name, _id }) => {
-    const payload = { email, name, _id };
+  signToken: ({ email, username, _id }) => {
+    const payload = { email, username, _id };
     return tokenizer.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };
