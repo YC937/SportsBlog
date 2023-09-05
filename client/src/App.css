@@ -1,0 +1,48 @@
+#root {
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  background-color: #1b4b3d;
+  color: white;
+}
+.top {
+  height: 40vh;
+  width: 100%;
+  margin-bottom: 25px;
+  background-image: url("./assets/Cubs-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+.bottom {
+  height: 30vh;
+  width: 100%;
+  margin-bottom: 25px;
+  background-image: url("./assets/Cubs-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.navigation-bar {
+  background-color: gray;
+}
+.page-sizing {
+  width: 100%;
+  height: 100%;
+}
+.home-pad {
+  padding: 100px;
+}
+.footer {
+  background-color: #1b4b3d;
+  height: 5vh;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
