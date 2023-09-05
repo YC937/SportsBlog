@@ -27,6 +27,8 @@ Once the app is opened, type these commands into the terminal to install the nec
 ## Usage
 Sign up for an account and begin searching for your desired stadiums! You can search by stadium name, city, or team name. Once you find your stadium, you can view the stadium's location, weather, and game schedule.
 
+![](./client/src/assets/Screenshot%202023-09-05%20130036.png)
+
 [Click here for the live site!](https://sports-spotter-ebb34b0a9d19.herokuapp.com/)
 
 ## License  
