@@ -9,23 +9,7 @@ const db = require('./config/connection');
 
 const PORT = process.env.PORT || 7575;
 const app = express();
-const openWeatherApiKey = process.env.OPENWEATHER_API_KEY;
 
-// ...
-
-app.get('/api/weather', async (req, res) => {
-  try {
-    const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=cityName&appid=${openWeatherApiKey}`
-    );
-    res.json(response.data);
-  } catch (error) {
-    console.error('Error fetching weather data:', error);
-    res.status(500).json({ error: 'An error occurred' });
-  }
-});
-
-// Weather API Above
 const server = new ApolloServer({
   typeDefs,
   resolvers,
