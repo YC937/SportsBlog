@@ -1,12 +1,10 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import { 
-  ApolloClient, 
-  InMemoryCache, 
-  ApolloProvider, 
-  createHttpLink, 
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
 } from '@apollo/client'
 // import LoginForm from './components/LoginForm';
 import LoginProvider from './utils/LoginContext';
@@ -47,7 +45,7 @@ function App() {
 
   // Get token, if null, the empty string will be the token
   const token = Auth.getToken() || '';
-  console.log('Token from app component',token);
+  console.log('Token from app component', token);
 
   // Want to set the proper state from the beginning if we are initially logged in
   const loggedIn = token.length > 0;
