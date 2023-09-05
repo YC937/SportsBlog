@@ -1,5 +1,5 @@
 import Logincheck from "../components/Logincheck";
-import StadiumList from "../components/StadiumList";
+// import StadiumList from "../components/StadiumList";
 
 export default function Stadiums(props) {
     return (

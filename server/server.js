@@ -10,7 +10,7 @@ const db = require('./config/connection');
 const PORT = process.env.PORT || 7575;
 const app = express();
 const openWeatherApiKey = process.env.OPENWEATHER_API_KEY;
-
+require('dotenv').config();
 // ...
 
 app.get('/api/weather', async (req, res) => {
