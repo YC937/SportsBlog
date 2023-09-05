@@ -10,6 +10,39 @@ const db = require('./config/connection');
 const PORT = process.env.PORT || 7575;
 const app = express();
 
+const openWeatherApiKey = process.env.OPENWEATHER_API_KEY;
+const eventMapping = require('./config/eventmap');
+
+// ...
+
+app.get('/api/weather', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `https://api.openweathermap.org/data/2.5/weather?q=cityName&appid=${openWeatherApiKey}`
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+app.get('/api/searchEvent', (req, res) => {
+  const userQuery = req.query.eventName;  
+
+  const eventId = eventMapping[userQuery];
+  if (eventId) {
+  
+    res.json({ eventId: eventId });
+  } else {
+    
+    res.status(404).json({ error: 'Event not found' });
+  }
+});
+
+
+// Weather API Above
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -20,6 +53,10 @@ const server = new ApolloServer({
       },
     },
   ],
+  formatError: (err) => {
+    console.error(err); 
+    return err;
+  },
 });
 
 const startApolloServer = async () => {

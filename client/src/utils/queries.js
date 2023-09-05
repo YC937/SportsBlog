@@ -65,15 +65,17 @@ export const QUERY_ME = gql`
   `;
   
   export const GET_EVENT = gql`
-    query getEvent($id: ID!) {
-      event(id: $id) {
-        idEvent
-        strEvent
-        dateEvent
-        strTime
-      }
+  query getEvent($eventName: String!) {
+    event(eventName: $eventName) {
+      idEvent
+      strEvent
+      dateEvent
+      strTime
     }
-  `;
+  }
+`;
+
+
   
   export const SEARCH_STADIUMS = gql`
     query searchStadiums($teamName: String!) {

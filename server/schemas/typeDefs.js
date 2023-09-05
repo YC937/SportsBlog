@@ -71,7 +71,7 @@ type Query {
     stadiums(searchTerm: String!): [Stadium]
     getWeatherData(city: String!): WeatherData
     getStadiumLocation(sportsGame: String!): [StadiumLocation]
-    event(id: ID!): Event
+    event(id: ID, eventName: String): Event
     team(id: ID!): Team
     player(id: ID!): Player
 }
