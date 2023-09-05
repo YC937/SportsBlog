@@ -1,8 +1,8 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_STADIUM_LOCATIONS } from './utils/queries'; 
+import { GET_STADIUM_LOCATIONS } from '../utils/queries'; 
 
-function StadiumLocations({ sportsGame }) {
+export default function StadiumLocations({ sportsGame }) {
   const { loading, error, data } = useQuery(GET_STADIUM_LOCATIONS, {
     variables: { sportsGame },
   });
@@ -25,4 +25,4 @@ function StadiumLocations({ sportsGame }) {
   );
 }
 
-export default StadiumLocations;
+
