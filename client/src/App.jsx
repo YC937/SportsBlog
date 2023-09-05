@@ -1,12 +1,10 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import { 
-  ApolloClient, 
-  InMemoryCache, 
-  ApolloProvider, 
-  createHttpLink, 
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
 } from '@apollo/client'
 // import LoginForm from './components/LoginForm';
 import LoginProvider from './utils/LoginContext';
@@ -15,6 +13,9 @@ import { setContext } from '@apollo/client/link/context';
 
 import Auth from './utils/auth';
 import Nav from './components/Nav';
+import Top from './components/Top';
+import Bottom from './components/Bottom';
+import Footer from './components/Footer';
 
 
 // Main GraphQL endpoint
@@ -47,7 +48,7 @@ function App() {
 
   // Get token, if null, the empty string will be the token
   const token = Auth.getToken() || '';
-  console.log('Token from app component',token);
+  console.log('Token from app component', token);
 
   // Want to set the proper state from the beginning if we are initially logged in
   const loggedIn = token.length > 0;
@@ -60,7 +61,10 @@ function App() {
     <ApolloProvider client={client}>
       <LoginProvider token={token} loggedIn={loggedIn}>
         <Nav />
+        <Top />
         <Outlet />
+        <Bottom />
+        <Footer />
       </LoginProvider>
     </ApolloProvider>
   )

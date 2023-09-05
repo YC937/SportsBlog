@@ -5,6 +5,15 @@ type User {
     email: String!
 }
 
+type Stadium {
+    _id: ID!
+    name: String!
+    location: String!
+    capacity: Int!
+    team: String
+    description: String
+}
+
 type Auth {
     token: ID!
     user: User
@@ -59,6 +68,7 @@ type StadiumLocation {
   
 type Query {
     me: User
+    stadiums(searchTerm: String!): [Stadium]
     getWeatherData(city: String!): WeatherData
     getStadiumLocation(sportsGame: String!): [StadiumLocation]
     event(id: ID, eventName: String): Event

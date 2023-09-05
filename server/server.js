@@ -9,6 +9,7 @@ const db = require('./config/connection');
 
 const PORT = process.env.PORT || 7575;
 const app = express();
+
 const openWeatherApiKey = process.env.OPENWEATHER_API_KEY;
 const eventMapping = require('./config/eventmap');
 
@@ -41,6 +42,7 @@ app.get('/api/searchEvent', (req, res) => {
 
 
 // Weather API Above
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
