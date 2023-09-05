@@ -40,7 +40,7 @@ app.get('/api/searchEvent', (req, res) => {
 });
 
 
-// Weather API Above
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,

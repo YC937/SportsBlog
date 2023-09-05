@@ -9,7 +9,7 @@ require('dotenv').config();
 
 const resolvers = {
   Query: {
-    me: async (parent, {}, context) => {
+    me: async (parent, { }, context) => {
       if (!isLoggedIn(context)) {
         throw new Error('You need to be logged in!');
       }
@@ -20,11 +20,11 @@ const resolvers = {
     },
     getWeatherData: async (_, { city }) => {
       const apiKey = process.env.OPENWEATHER_API_KEY;
-      console.log('API Key:',apiKey);
+      // console.log('API Key:', apiKey);
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
       );
-      const weatherData ={
+      const weatherData = {
         temperature: response.data.main.temp,
         description: response.data.weather[0].description,
       };
@@ -32,9 +32,9 @@ const resolvers = {
       return weatherData;
     },
     // getStadiumLocation: async (_, { sportsGame }) => {
-    //   const apiKey = process.env.GOOGLEPLACES_API_KEY; 
+    //   const apiKey = process.env.GOOGLEPLACES_API_KEY;
     //   const apiUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json`;
-      
+
     //   try {
     //     const response = await axios.get(apiUrl, {
     //       params: {
@@ -42,13 +42,13 @@ const resolvers = {
     //         key: apiKey,
     //       },
     //     });
-    
+
     //     const stadiumLocations = response.data.results.map(result => ({
     //       name: result.name,
     //       address: result.formatted_address,
     //       location: result.geometry.location,
     //     }));
-    
+
     //     return stadiumLocations;
     //   } catch (error) {
     //     console.error('Error fetching stadium locations:', error);
@@ -66,7 +66,7 @@ const resolvers = {
         throw new Error('Error fetching team');
       }
     },
-    
+
     player: async (_, { id }) => {
       try {
         const apiUrl = `https://www.thesportsdb.com/api/v1/json/${process.env.THESPORTSDB_API_KEY}/lookupplayer.php?id=${id}`;
@@ -78,7 +78,7 @@ const resolvers = {
         throw new Error('Error fetching player');
       }
     },
-    
+
     event: async (_, { id, eventName }) => {
       try {
           let eventId;
@@ -106,62 +106,49 @@ const resolvers = {
       }
   },
   
-    
+
   },
   Mutation: {
     signup: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       const token = auth.signToken(user);
-      return { token, user }; 
-},
+      return { token, user };
+    },
 
-login: async (parent, { email, password }) => {
-  if (email) {
-    const user = await User.findOne({ email });
+    login: async (parent, { email, password }) => {
+      if (email) {
+        const user = await User.findOne({ email });
 
-    if (!user) {
+        if (!user) {
+          throw new Error('Error: No user found with this email address');
+        }
+
+        const correctPw = await user.isCorrectPassword(password);
+
+        if (!correctPw) {
+          throw new Error('Error: Incorrect credentials');
+        }
+
+        const token = auth.signToken(user);
+
+        return { token, user };
+      }
       throw new Error('Error: No user found with this email address');
-    }
+    },
+    addPlayer: async (_, { input }) => {
+      const apiKey = process.env.THESPORTSDB_API_KEY;
+      const apiUrl = `https://www.thesportsdb.com/api/v1/json/${apiKey}/addplayer.php`;
 
-    const correctPw = await user.isCorrectPassword(password);
-
-    if (!correctPw) {
-      throw new Error('Error: Incorrect credentials');
-    }
-
-    const token = auth.signToken(user);
-
-    return { token, user };
-  }
-  throw new Error('Error: No user found with this email address');
-},
-addPlayer: async (_, { input }) => {
-  const apiKey = process.env.THESPORTSDB_API_KEY; 
-  const apiUrl = `https://www.thesportsdb.com/api/v1/json/${apiKey}/addplayer.php`;
-
-  try {
-    const response = await axios.post(apiUrl, input);
-    const addedPlayer = response.data.player; 
-    return addedPlayer;
-  } catch (error) {
-    console.error('Error adding player:', error);
-    throw new Error('Error adding player');
-  }
-},
-// getWeatherData: async (_, { city }) => {
-//   const apiKey = process.env.OPENWEATHER_API_KEY;
-//   const response = await axios.get(
-//     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
-//   );
-  
-//   const weatherData = {
-//     temperature: response.data.main.temp,
-//     description: response.data.weather[0].description,
-//   };
-
-//   return weatherData;
-//   },
-},
+      try {
+        const response = await axios.post(apiUrl, input);
+        const addedPlayer = response.data.player;
+        return addedPlayer;
+      } catch (error) {
+        console.error('Error adding player:', error);
+        throw new Error('Error adding player');
+      }
+    },
+  },
 };
 
 module.exports = resolvers;

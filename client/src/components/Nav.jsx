@@ -3,6 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, useLocation } from "react-router-dom";
 import { useLogin } from "../utils/LoginContext";
+import '../styles/Nav.css'
 
 export default function NavTabs() {
     const [state] = useLogin();
@@ -15,7 +16,7 @@ export default function NavTabs() {
                     <Navbar.Brand className='nav-name'>SportsSpotter</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className='ms-auto tabs'>
+                        <Nav className='ms-auto mx-auto tabs'>
                             <Link
                                 to='/'
                                 className={currentPage === '/' ? 'nav-link active' : 'nav-link'}>
