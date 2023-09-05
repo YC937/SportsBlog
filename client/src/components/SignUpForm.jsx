@@ -42,7 +42,7 @@ export default function LoginForm(props) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(formState);
+        console.log('Form State',formState);
         setShowError(false);
         setShowSuccess(false);
 
@@ -72,6 +72,7 @@ export default function LoginForm(props) {
             return navigate('/');
         } catch (err) {
             console.log(err);
+            console.log(err.message);
             setShowError(true);
         }
     }
