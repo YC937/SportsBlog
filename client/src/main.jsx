@@ -36,10 +36,10 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <Signup />,
       },
-      {
-        path: '/stadium-search',
-        element: <StadiumSearch />,
-       }
+      // {
+      //   path: '/stadium-search',
+      //   element: <StadiumSearch />,
+      //  }
     ]
   }
 ])
